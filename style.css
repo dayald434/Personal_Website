@@ -18,10 +18,6 @@ body {
   box-shadow: 2px 0 12px #0004;
   position: sticky;
   top: 0;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 .sidebar .profile img {
   border: 3px solid #64ffda;
@@ -56,7 +52,6 @@ body {
   min-height: 100vh;
   max-width: 900px;
   margin: 0 auto;
-  padding: 2.5rem 2.5rem 0 2.5rem;
 }
 .section {
   padding-bottom: 2rem;
@@ -110,6 +105,8 @@ body {
   font-weight: 400;
   font-size: 1rem;
 }
+
+/* Improved timeline description for clarity and emphasis */
 .timeline-desc {
   color: #e6f1ff;
   font-size: 1.09rem;
@@ -124,11 +121,14 @@ body {
   box-shadow: 0 1px 4px #0001;
   transition: background 0.3s;
 }
+
 .timeline-desc.highlight {
   background: rgba(100,255,218,0.15);
   border-left: 4px solid #64ffda;
   font-weight: 500;
 }
+
+/* For highlighting tech keywords inside the description */
 .tech-highlight {
   color: #64ffda;
   font-weight: 600;
@@ -138,10 +138,13 @@ body {
   margin: 0 2px;
   font-size: 1em;
 }
+
 .timeline-item:hover .timeline-desc,
 .timeline-item:hover .timeline-desc.highlight {
   background: rgba(100,255,218,0.18);
 }
+
+/* Project cards */
 .project-card {
   background: #112240;
   border: 1.5px solid #233554;
@@ -183,39 +186,31 @@ body {
 .edu-degree {
   color: #ccd6f6;
 }
-.row.g-4 {
-  align-items: stretch;
+@media (max-width: 991px) {
+  .main-wrapper {
+    flex-direction: column;
+  }
+  .sidebar {
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+    box-shadow: none;
+    position: relative;
+    text-align: center;
+  }
+  .content {
+    max-width: 100%;
+    padding: 1.5rem;
+  }
 }
-.edu-list .text-muted,
-.edu-list .fs-6 {
-  color: #333 !important;
-  font-size: 1rem !important;
-  opacity: 1 !important;
-  display: inline !important;
+::-webkit-scrollbar {
+  width: 8px;
+  background: #112240;
 }
-.section-title .fa { margin-right: 0.5em; }
-.icon-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-  background: #f1f3f5;
-  border-radius: 999px;
-  padding: 0.3em 0.8em;
-  font-size: 1em;
-  margin: 0.3em 0.4em 0.3em 0;
-  border: 1px solid #e9ecef;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-  transition: background 0.2s;
+::-webkit-scrollbar-thumb {
+  background: #233554;
+  border-radius: 4px;
 }
-.icon-badge i { opacity: 0.85; }
-.lang-fluent { background: #e7f8ff; color: #0d6efd; }
-.lang-native { background: #f0fdf4; color: #198754; }
-.lang-intermediate { background: #fff6e0; color: #ff9800; }
-.hobby-badge { background: #fff3e6; color: #ff6f00; }
-.hobby-badge-dev { background: #f3e9ff; color: #8e44ad; }
-.hobby-badge-travel { background: #e8fafd; color: #0097a7; }
-.hobby-badge-book { background: #eaf7e1; color: #388e3c; }
-.hobby-badge-open { background: #e7eaf6; color: #1b5e20; }
 
 /* Modal - force modal content to dark mode by default except inner content overridden below */
 #experienceModal .modal-content {
@@ -225,7 +220,8 @@ body {
 #experienceModal .modal-content * {
   color: #111 !important;
 }
-/* Timeline header layout fix */
+
+/* Ensure timeline-header always aligns date right */
 .timeline-header {
   display: flex;
   align-items: center;
@@ -239,96 +235,41 @@ body {
   white-space: nowrap;
 }
 
-/* Responsive styles */
-@media (max-width: 991px) {
-  .main-wrapper {
-    flex-direction: column;
-  }
-  .sidebar {
-    min-width: 100%;
-    max-width: 100%;
-    height: auto;
-    box-shadow: none;
-    position: relative;
-    text-align: center;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0.5rem;
-  }
-  .sidebar .profile {
-    margin-bottom: 0;
-    margin-right: 1.5rem;
-  }
-  .sidebar .nav {
-    flex-direction: row !important;
-    justify-content: center;
-    width: auto !important;
-    gap: 0.5rem;
-  }
-  .sidebar .nav-link {
-    padding: 0.5rem 0.7rem;
-    font-size: 1rem;
-  }
-  .sidebar .mt-auto {
-    display: none;
-  }
-  .content {
-    max-width: 100%;
-    padding: 1.2rem 0.6rem 0 0.6rem;
-  }
+/* --- Stylish Languages & Hobbies --- */
+.icon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  background: #f1f3f5;
+  border-radius: 999px;
+  padding: 0.3em 0.8em;
+  font-size: 1em;
+  margin: 0.3em 0.4em 0.3em 0;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  transition: background 0.2s;
 }
+.icon-badge i {
+  opacity: 0.85;
+}
+.lang-fluent { background: #e7f8ff; color: #0d6efd; }
+.lang-native { background: #f0fdf4; color: #198754; }
+.lang-intermediate { background: #fff6e0; color: #ff9800; }
+.hobby-badge { background: #fff3e6; color: #ff6f00; }
+.hobby-badge-dev { background: #f3e9ff; color: #8e44ad; }
+.hobby-badge-travel { background: #e8fafd; color: #0097a7; }
+.hobby-badge-book { background: #eaf7e1; color: #388e3c; }
+.hobby-badge-open { background: #e7eaf6; color: #1b5e20; }
+/* Section icons */
+.section-title .fa { margin-right: 0.5em; }
 
-@media (max-width: 767px) {
-  .content {
-    padding: 1rem 0.2rem 0 0.2rem;
-  }
-  .section-title {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-  }
-  .timeline {
-    margin-left: 0.3rem;
-    padding-left: 1.1rem;
-  }
-  .project-card {
-    font-size: 0.97rem;
-    padding: 1rem 0.7rem;
-  }
-  .tech-list .list-inline-item,
-  .tech-list li span {
-    font-size: 0.92rem;
-    padding: 0.22rem 0.5rem;
-  }
-  .icon-badge {
-    font-size: 0.91rem;
-    padding: 0.22em 0.5em;
-  }
-  .edu-item {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 0.4rem !important;
-  }
-  .sidebar {
-    flex-direction: column;
-    align-items: center;
-    padding: 0.7rem 0.2rem;
-  }
-  .sidebar .profile {
-    margin-bottom: 0.7rem;
-    margin-right: 0;
-  }
-  .sidebar .nav {
-    flex-direction: column !important;
-    width: 100% !important;
-  }
+.row.g-4 {
+  align-items: stretch;
 }
-
-::-webkit-scrollbar {
-  width: 8px;
-  background: #112240;
-}
-::-webkit-scrollbar-thumb {
-  background: #233554;
-  border-radius: 4px;
+.edu-list .text-muted,
+.edu-list .fs-6 {
+  color: #333 !important;   /* Make sure it's a visible dark color */
+  font-size: 1rem !important;
+  opacity: 1 !important;    /* Prevent being faded out */
+  display: inline !important;
 }
