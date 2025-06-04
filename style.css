@@ -266,3 +266,10 @@ body {
 .row.g-4 {
   align-items: stretch;
 }
+.edu-list .text-muted,
+.edu-list .fs-6 {
+  color: #333 !important;   /* Make sure it's a visible dark color */
+  font-size: 1rem !important;
+  opacity: 1 !important;    /* Prevent being faded out */
+  display: inline !important;
+}
