@@ -4,33 +4,79 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Devi Dayal — Portfolio</title>
+  <meta name="theme-color" content="#0d1117" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="style.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    /* Add this inline style or in your style.css */
-    .timeline-date,
-    .edu-item > span,
-    .mt-auto.text-muted,
-    .text-muted.fs-6 {
-      color: #fff !important;
+    :root {
+      --bg:#0d1117;--bg-alt:#161b22;--glass:rgba(255,255,255,0.05);
+      --border:rgba(255,255,255,0.12);--accent:#5eb3ff;
+      --accent-grad:linear-gradient(135deg,#5eb3ff,#9b6bff);
+      --text:#e6edf3;--text-muted:#8b949e;--radius:14px;
+      --shadow:0 8px 24px -8px rgba(0,0,0,.55);--transition:.25s cubic-bezier(.4,.2,.2,1);
+      font-family:'Inter',system-ui,sans-serif;
     }
+    :root.light {
+      --bg:#f5f7fb;--bg-alt:#ffffff;--glass:rgba(0,0,0,0.05);
+      --border:rgba(0,0,0,0.12);--text:#1f2328;--text-muted:#5b636c;
+      --shadow:0 6px 18px -6px rgba(0,0,0,.15);
+    }
+    html,body {background:var(--bg);color:var(--text);margin:0;min-height:100%;}
+    .main-wrapper {display:flex;min-height:100vh;}
+    .sidebar {background:radial-gradient(circle at top left,#202c3a,#0d1117 70%);width:270px;flex-shrink:0;position:sticky;top:0;height:100vh;border-right:1px solid var(--border);}
+    @media (max-width:768px){.sidebar{position:static;width:100%;height:auto;border-right:none;border-bottom:1px solid var(--border);} .main-wrapper{flex-direction:column;}}
+    .content {flex:1;overflow-y:auto;padding-bottom:4rem;
+      background:
+        linear-gradient(155deg,rgba(94,179,255,.05),transparent 40%),
+        linear-gradient(45deg,rgba(155,107,255,.06),transparent 55%);
+    }
+    .section-title {display:flex;align-items:center;gap:.6rem;font-size:1.45rem;font-weight:600;background:var(--accent-grad);-webkit-background-clip:text;color:transparent;margin-bottom:1.25rem;}
+    .nav-link {color:var(--text-muted);font-weight:500;padding:.6rem .9rem;border-radius:8px;transition:var(--transition);margin-bottom:.3rem;}
+    .nav-link:hover {color:var(--text);background:var(--glass);}
+    .nav-link.active {color:var(--text);background:var(--accent-grad);}
+    .profile-photo {border:3px solid var(--accent);transition:var(--transition);}
+    .profile-photo:hover {transform:scale(1.05) rotate(2deg);}
+    .tech-list .list-inline-item {background:var(--glass);padding:.45rem .75rem;margin:.35rem .4rem .35rem 0;border-radius:10px;font-size:.75rem;border:1px solid var(--border);transition:var(--transition);}
+    .tech-list .list-inline-item:hover {transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--accent);}
+    .project-card {background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;display:flex;flex-direction:column;min-height:220px;position:relative;transition:var(--transition);overflow:hidden;}
+    .project-card::before {content:'';position:absolute;inset:0;background:linear-gradient(120deg,rgba(94,179,255,.15),rgba(155,107,255,.15));opacity:0;transition:var(--transition);}
+    .project-card:hover {transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--accent);}
+    .project-card:hover::before {opacity:.18;}
+    .project-desc {font-size:.82rem;color:var(--text-muted);flex-grow:1;}
+    .badge.bg-dark {background:var(--glass)!important;border:1px solid var(--border);color:var(--text);margin:2px;backdrop-filter:blur(6px);}
+    .timeline {position:relative;margin-left:.7rem;padding-left:1.2rem;}
+    .timeline::before {content:'';position:absolute;left:4px;top:4px;bottom:0;width:3px;background:linear-gradient(to bottom,var(--accent),transparent 85%);border-radius:3px;}
+    .timeline-item {position:relative;margin-bottom:1.9rem;padding:.9rem 1rem 1rem;background:var(--bg-alt);border:1px solid var(--border);border-radius:12px;transition:var(--transition);}
+    .timeline-item::before {content:'';position:absolute;left:-18px;top:18px;width:12px;height:12px;background:var(--accent-grad);border-radius:50%;box-shadow:0 0 0 4px rgba(94,179,255,.15);}
+    .timeline-item:hover {border-color:var(--accent);box-shadow:var(--shadow);}
+    .edu-item {background:var(--bg-alt);padding:.9rem 1rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1rem;transition:var(--transition);}
+    .edu-item:hover {border-color:var(--accent);transform:translateY(-4px);}
+    .icon-badge {display:inline-flex;align-items:center;gap:.35rem;background:var(--glass);padding:.45rem .7rem;margin:.3rem .35rem .3rem 0;font-size:.7rem;border-radius:9px;border:1px solid var(--border);color:var(--text-muted);transition:var(--transition);}
+    .icon-badge:hover {color:var(--text);border-color:var(--accent);background:rgba(94,179,255,.15);}
+    .theme-toggle {background:var(--glass);border:1px solid var(--border);font-size:.75rem;border-radius:10px;transition:var(--transition);width:100%;}
+    .theme-toggle:hover {border-color:var(--accent);background:var(--accent-grad);color:#fff;}
+    @media (max-width:576px){.section-title{font-size:1.25rem;} .timeline-item{padding:.75rem .8rem;} .nav-link{padding:.55rem .75rem;font-size:.8rem;} .profile-photo{width:95px;height:95px;}}
   </style>
 </head>
 <body>
   <div class="container-fluid main-wrapper">
-    <aside class="sidebar d-flex flex-column align-items-center py-5 px-3">
+    <aside class="sidebar d-flex flex-column align-items-center py-4 px-3">
+      <button class="btn btn-sm btn-outline-light theme-toggle mb-3" type="button" aria-label="Toggle theme"><i class="fa fa-moon"></i> Theme</button>
       <div class="profile mb-4 text-center">
-        <img src="Devi.jpg" alt="Avatar" class="rounded-circle shadow" width="100" height="100" style="object-fit:cover;">
+        <img src="Devi.jpg" alt="Avatar" class="rounded-circle shadow profile-photo" width="110" height="110" style="object-fit:cover;">
         <h1 class="fs-3 mt-3 accent">Devi Dayal</h1>
         <p class="fs-6 text-muted">AI, Software Engineer & Data Enthusiast</p>
         <div class="social-icons my-3">
-          <a href="https://github.com/dayald434" target="_blank" class="me-3"><i class="fab fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/devi-dayal-836b4231a/" target="_blank" class="me-3"><i class="fab fa-linkedin"></i></a>
-          <a href="mailto:ddayal434@gmail.com"><i class="fa fa-envelope"></i></a>
+          <a href="https://github.com/dayald434" target="_blank" class="me-3" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/devi-dayal-836b4231a/" target="_blank" class="me-3" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="mailto:ddayal434@gmail.com" aria-label="Email"><i class="fa fa-envelope"></i></a>
         </div>
       </div>
-      <nav class="nav flex-column text-center w-100">
+      <button class="btn btn-primary d-md-none mb-3" data-bs-toggle="collapse" data-bs-target="#mobileNav" aria-expanded="false">Menu <i class="fa fa-bars"></i></button>
+      <nav id="mobileNav" class="nav flex-column text-center w-100 collapse d-md-block">
         <a href="#about" class="nav-link scroll-link active">About</a>
         <a href="#experience" class="nav-link scroll-link">Experience</a>
         <a href="#projects" class="nav-link scroll-link">Projects</a>
@@ -44,16 +90,9 @@
       <!-- About -->
       <section id="about" class="section mb-5">
         <h2 class="section-title accent"><i class="fa fa-user"></i>About Me</h2>
-        <p>
-          I am currently an AI Software Developer (Working Student) and pursuing a Master’s in Geomatics at Karlsruhe University of Applied Sciences. My work spans AI, GIS, Spatial Data Science, Web Services & Geomonitoring, Satellite Imaging, and Big Data Analytics, with a focus on creating intelligent systems that seamlessly connect the physical and digital worlds
-        </p>
-        <p>
-          As a Data Engineer and Software Developer with over 6.5 years of experience, I specialize in designing scalable data warehouses, developing ETL pipelines, building BI solutions, and creating AI-powered applications that transform complex data into actionable insights.
-        </p>
-        <p>
-          At Indicus Software Japan, I led global data warehouse and ETL projects for JTEKT Corporation, ensuring secure, consistent, and department-specific data access. I also contributed to real-time analytics, anomaly detection models, and performance
-        </p>
-
+        <p>I am currently an AI Software Developer (Working Student) and pursuing a Master’s in Geomatics at Karlsruhe University of Applied Sciences. My work spans AI, GIS, Spatial Data Science, Web Services & Geomonitoring, Satellite Imaging, and Big Data Analytics, with a focus on creating intelligent systems that seamlessly connect the physical and digital worlds.</p>
+        <p>As a Data Engineer and Software Developer with over 6.5 years of experience, I specialize in designing scalable data warehouses, developing ETL pipelines, building BI solutions, and creating AI-powered applications that transform complex data into actionable insights.</p>
+        <p>At Indicus Software Japan, I led global data warehouse and ETL projects for JTEKT Corporation, ensuring secure, consistent, and department-specific data access. I also contributed to real-time analytics, anomaly detection models, and performance.</p>
         <p class="mb-2"><strong>Technical Expertise</strong></p>
         <ul class="list-inline tech-list">
           <li class="list-inline-item"><span>Data Engineering: Data Warehouse Architecture, ETL Development</span></li>
@@ -72,9 +111,7 @@
           <li class="list-inline-item"><span>Project Management: Cross-functional collaboration and delivery</span></li>
           <li class="list-inline-item"><span>LLMProxy, LiteLLM, OpenAI, Ollama</span></li>
         </ul>
-        <p>
-          Beyond my professional and academic work, I’m deeply passionate about the intersection of AI and sensor technology. I regularly engage in personal projects and open-source contributions that push the boundaries of what's possible in intelligent system design.
-        </p>
+        <p>Beyond my professional and academic work, I’m deeply passionate about the intersection of AI and sensor technology. I regularly engage in personal projects and open-source contributions that push the boundaries of what's possible in intelligent system design.</p>
       </section>
 
       <!-- Experience -->
@@ -82,44 +119,36 @@
         <h2 class="section-title accent"><i class="fa fa-briefcase"></i>Experience</h2>
         <div class="timeline">
           <div class="timeline-item">
-            <div class="timeline-header">
+            <div class="timeline-header d-flex justify-content-between align-items-center">
               <h4>AI Working Student <span class="company">@ Gameforge</span></h4>
               <span class="timeline-date text-muted fs-6">Mar 2025 – August 2025</span>
             </div>
             <p class="mb-1"><span class="badge bg-secondary">Karlsruhe, Germany</span></p>
-            <p class="timeline-desc highlight">
-              <strong>Developing a local AI platform that enables users to interact with LLMs using <span class="tech-highlight">Python</span>, <span class="tech-highlight">REST APIs</span>, <span class="tech-highlight">OpenAI</span>, <span class="tech-highlight">Ollama</span>, <span class="tech-highlight">LiteLLM</span>, <span class="tech-highlight">LLMProxy</span> and <span class="tech-highlight">LangChain</span>.</strong>
-            </p>
+            <p class="timeline-desc"><strong>Developing a local AI platform that enables users to interact with LLMs using <span class="tech-highlight">Python</span>, <span class="tech-highlight">REST APIs</span>, <span class="tech-highlight">OpenAI</span>, <span class="tech-highlight">Ollama</span>, <span class="tech-highlight">LiteLLM</span>, <span class="tech-highlight">LLMProxy</span> and <span class="tech-highlight">LangChain</span>.</strong></p>
           </div>
           <div class="timeline-item">
-            <div class="timeline-header">
+            <div class="timeline-header d-flex justify-content-between align-items-center">
               <h4>Data Engineer <span class="company">@ Indicus Software Japan</span></h4>
               <span class="timeline-date text-muted fs-6">Jan 2020 - Apr 2023</span>
             </div>
             <p class="mb-1"><span class="badge bg-secondary">Osaka, Japan</span></p>
-            <p class="timeline-desc highlight">
-              <strong>Specialized in <span class="tech-highlight">database management</span>, <span class="tech-highlight">cloud computing</span>, <span class="tech-highlight">DWH</span>, <span class="tech-highlight">ETL</span>, <span class="tech-highlight">BI(Tableau, Power BI, Yellowfin)</span>,<span class="tech-highlight">Python</span>, <span class="tech-highlight">REST APIs</span> and <span class="tech-highlight">Big Data solutions</span>.</strong>
-            </p>
+            <p class="timeline-desc"><strong>Specialized in <span class="tech-highlight">database management</span>, <span class="tech-highlight">cloud computing</span>, <span class="tech-highlight">DWH</span>, <span class="tech-highlight">ETL</span>, <span class="tech-highlight">BI(Tableau, Power BI, Yellowfin)</span>,<span class="tech-highlight">Python</span>, <span class="tech-highlight">REST APIs</span> and <span class="tech-highlight">Big Data solutions</span>.</strong></p>
           </div>
           <div class="timeline-item">
-            <div class="timeline-header">
+            <div class="timeline-header d-flex justify-content-between align-items-center">
               <h4>Data Engineer <span class="company">@ IT Support Desk Pvt Ltd</span></h4>
               <span class="timeline-date text-muted fs-6">Nov 2015 - Sep 2018</span>
             </div>
             <p class="mb-1"><span class="badge bg-secondary">Bangalore, India</span></p>
-            <p class="timeline-desc highlight">
-              <strong>Designed <span class="tech-highlight">DWH models</span> with <span class="tech-highlight">Informatica PowerCenter</span> and delivered dashboards with <span class="tech-highlight">Tableau</span> and <span class="tech-highlight">Power BI</span>.</strong>
-            </p>
+            <p class="timeline-desc"><strong>Designed <span class="tech-highlight">DWH models</span> with <span class="tech-highlight">Informatica PowerCenter</span> and delivered dashboards with <span class="tech-highlight">Tableau</span> and <span class="tech-highlight">Power BI</span>.</strong></p>
           </div>
           <div class="timeline-item">
-            <div class="timeline-header">
+            <div class="timeline-header d-flex justify-content-between align-items-center">
               <h4>Data Center Engineer <span class="company">@ Roman Technology</span></h4>
               <span class="timeline-date text-muted fs-6">Apr 2015 - Nov 2015</span>
             </div>
             <p class="mb-1"><span class="badge bg-secondary">Bangalore, India</span></p>
-            <p class="timeline-desc highlight">
-              <strong>Specialized in the design and maintenance of <span class="tech-highlight">LANs</span>, <span class="tech-highlight">WANs</span>, and <span class="tech-highlight">wireless networks</span>.</strong>
-            </p>
+            <p class="timeline-desc"><strong>Specialized in the design and maintenance of <span class="tech-highlight">LANs</span>, <span class="tech-highlight">WANs</span>, and <span class="tech-highlight">wireless networks</span>.</strong></p>
           </div>
         </div>
       </section>
@@ -127,105 +156,71 @@
       <!-- Projects -->
       <section id="projects" class="section mb-5">
         <h2 class="section-title accent"><i class="fa fa-flask"></i>Projects</h2>
-        <!-- Project Boxes Start -->
         <div class="row g-4">
-          <!-- Project 1 -->
           <div class="col-md-6 col-lg-4">
-            <a href="https://dd6d8a39a875.ngrok-free.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
-              <div class="project-card h-100 shadow-sm border rounded p-3 d-flex flex-column">
+            <a href="https://603675588b09.ngrok-free.app/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
+              <div class="project-card h-100 p-3 d-flex flex-column">
                 <h5 class="project-title mb-2">💬 AI ChatBot</h5>
-                <p class="project-desc flex-grow-1">
-                  Developed a chatbot leveraging LLM APIs and LiteLLM for unified deployment, enabling dynamic selection of any LLM model and generating context-aware responses.
-                </p>
-                <p style="font-weight: bold; color: #007bff;">🚀 Click to open in a new tab!(click on "Visit Site" as it is free)</p>
+                <p class="project-desc flex-grow-1">Developed a chatbot leveraging LLM APIs and LiteLLM for unified deployment, enabling dynamic model selection and context-aware responses.</p>
+                <p class="fw-bold text-primary">🚀 Open (Visit Site)</p>
                 <div>
-                  <span class="badge bg-dark">Python</span>
-                  <span class="badge bg-dark">LLMProxy</span>
-                  <span class="badge bg-dark">Ollama</span>
-                  <span class="badge bg-dark">OpenAI</span>
-                  <span class="badge bg-dark">LangChain</span>
-                  <span class="badge bg-dark">APIs</span>
-                  <span class="badge bg-dark">Machine Learning</span>
+                  <span class="badge bg-dark">Python</span><span class="badge bg-dark">LLMProxy</span><span class="badge bg-dark">Ollama</span><span class="badge bg-dark">OpenAI</span><span class="badge bg-dark">LangChain</span><span class="badge bg-dark">APIs</span><span class="badge bg-dark">ML</span>
                 </div>
               </div>
             </a>
           </div>
-          <!-- Project 2 -->
           <div class="col-md-6 col-lg-4">
-            <a href="https://61234c36d0e9.ngrok-free.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
-              <div class="project-card h-100 shadow-sm border rounded p-3 d-flex flex-column">
-                <h5 class="project-title mb-2">📄 PDF Chatbot Assistant: Potential Herbal and Dietary Supplement Toxicities</h5>
-                <p class="project-desc flex-grow-1">
-                  Created a PDF Q&amp;A assistant enabling context-aware search and responses within documents. Users can select their preferred model to efficiently extract information from PDFs.
-                </p>
-                <p style="font-weight: bold; color: #007bff;">🚀 Click to open in a new tab!(click on "Visit Site" as it is free)</p>
+            <a href="https://c6243cfbb501.ngrok-free.app/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
+              <div class="project-card h-100 p-3 d-flex flex-column">
+                <h5 class="project-title mb-2">📄 PDF Assistant</h5>
+                <p class="project-desc flex-grow-1">Context-aware PDF Q&A assistant; users choose model for document insight extraction.</p>
+                <p class="fw-bold text-primary">🚀 Open</p>
                 <div>
-                  <span class="badge bg-dark">Python</span>
-                  <span class="badge bg-dark">Ollama</span>
-                  <span class="badge bg-dark">Langchain</span>
-                  <span class="badge bg-dark">Machine Learning</span>
+                  <span class="badge bg-dark">Python</span><span class="badge bg-dark">Ollama</span><span class="badge bg-dark">LangChain</span><span class="badge bg-dark">ML</span>
                 </div>
               </div>
             </a>
           </div>
-          <!-- Project 3 -->
           <div class="col-md-6 col-lg-4">
-            <a href="https://296296939991.ngrok-free.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
-              <div class="project-card h-100 shadow-sm border rounded p-3 d-flex flex-column">
-                <h5 class="project-title mb-2">📈 Market News Analyzer Chatbot</h5>
-                <p class="project-desc flex-grow-1">
-                  Extracts the latest stock market news, insights, and analysis, providing accurate and timely investment recommendations. Powered by OpenAI and custom data pipelines, it helps users identify the best times to invest.
-                </p>
-                <p style="font-weight: bold; color: #007bff;">🚀 Click to open in a new tab!(click on "Visit Site" as it is free)</p>
+            <a href="https://296296939991.ngrok-free.app/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
+              <div class="project-card h-100 p-3 d-flex flex-column">
+                <h5 class="project-title mb-2">📈 Market News Analyzer</h5>
+                <p class="project-desc flex-grow-1">Fetches and analyzes market news to surface investment timing insights using LLM + pipelines.</p>
+                <p class="fw-bold text-primary">🚀 Open</p>
                 <div>
-                  <span class="badge bg-dark">OpenAI</span>
-                  <span class="badge bg-dark">Python</span>
-                  <span class="badge bg-dark">Ollama</span>
-                  <span class="badge bg-dark">Langchain</span>
-                  <span class="badge bg-dark">Machine Learning</span>
-                  <span class="badge bg-dark">Data Pipeline</span>
+                  <span class="badge bg-dark">OpenAI</span><span class="badge bg-dark">Python</span><span class="badge bg-dark">Ollama</span><span class="badge bg-dark">LangChain</span><span class="badge bg-dark">ML</span><span class="badge bg-dark">Pipeline</span>
                 </div>
               </div>
             </a>
           </div>
-          <!-- Project 4 -->
           <div class="col-md-6 col-lg-4">
-            <a href="https://dayald434.github.io/Panda-AI-Stationery/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
-              <div class="project-card h-100 shadow-sm border rounded p-3 d-flex flex-column">
+            <a href="https://dayald434.github.io/Panda-AI-Stationery/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
+              <div class="project-card h-100 p-3 d-flex flex-column">
                 <h5 class="project-title mb-2">🌐 Company Website</h5>
-                <p class="project-desc flex-grow-1">
-                  A personal website showcasing my brother’s company information, projects, and blog posts (currently under development)
-                </p>
-                <p style="font-weight: bold; color: #007bff;">🚀 Click to open in a new tab!</p>
+                <p class="project-desc flex-grow-1">Showcasing company info, projects & blog (in progress).</p>
+                <p class="fw-bold text-primary">🚀 Open</p>
               </div>
             </a>
           </div>
-          <!-- Project 5 -->
           <div class="col-md-6 col-lg-4">
-            <a href="https://github.com/dayald434/Data-Science-Python-3" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
-              <div class="project-card h-100 shadow-sm border rounded p-3 d-flex flex-column">
+            <a href="https://github.com/dayald434/Data-Science-Python-3" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
+              <div class="project-card h-100 p-3 d-flex flex-column">
                 <h5 class="project-title mb-2">📑 Data Engineering Work (PDF)</h5>
-                <p class="project-desc flex-grow-1">
-                  Discover various projects and case studies in Data Science and Data Engineering, including data pipelines, ETL processes, and data visualization techniques using.
-                </p>
-                <p style="font-weight: bold; color: #007bff;">📄 View the PDF in your browser</p>
+                <p class="project-desc flex-grow-1">Case studies: pipelines, ETL optimization, visualization approaches.</p>
+                <p class="fw-bold text-primary">📄 View PDF</p>
               </div>
             </a>
           </div>
-          <!-- Project 6 -->
           <div class="col-md-6 col-lg-4">
-            <a href="https://github.com/dayald434/Machine-Learning" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
-              <div class="project-card h-100 shadow-sm border rounded p-3 d-flex flex-column">
+            <a href="https://github.com/dayald434/Machine-Learning" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
+              <div class="project-card h-100 p-3 d-flex flex-column">
                 <h5 class="project-title mb-2">📑 Machine Learning Work (PDF)</h5>
-                <p class="project-desc flex-grow-1">
-                  Discover various projects and case studies in Machine Learning. Data Proprocessing, Regression, ANN, DTC, K nearest, NLP, Classification.
-                </p>
-                <p style="font-weight: bold; color: #007bff;">📄 View the PDF in your browser</p>
+                <p class="project-desc flex-grow-1">Regression, ANN, Trees, KNN, NLP, classification experiments.</p>
+                <p class="fw-bold text-primary">📄 View PDF</p>
               </div>
             </a>
           </div>
         </div>
-        <!-- Project Boxes End -->
       </section>
 
       <!-- Education -->
@@ -236,8 +231,7 @@
             <div class="d-flex align-items-center">
               <img src="hka.png" alt="HKA Logo" class="me-3" style="height:50px;">
               <div>
-                <span class="edu-degree fw-bold">M.Sc. in Electrical Engineering and IT (Sensor Systems &amp; ML Technology)</span>
-                <br>
+                <span class="edu-degree fw-bold">M.Sc. in Electrical Engineering and IT (Sensor Systems &amp; ML Technology)</span><br>
                 <a href="https://www.h-ka.de/en/" target="_blank" class="edu-school">Hochschule Karlsruhe (HKA), Germany</a>
               </div>
             </div>
@@ -245,10 +239,9 @@
           </div>
           <div class="edu-item d-flex align-items-center justify-content-between mb-4 flex-wrap">
             <div class="d-flex align-items-center">
-              <img src="ptu.png" alt="PTU Logo" class="me-3" style="height:70px;" width="340">
+              <img src="ptu.png" alt="PTU Logo" class="me-3" style="height:70px;">
               <div>
-                <span class="edu-degree fw-bold">Bachelor of Technology in Electronics and Communication Engineering</span>
-                <br>
+                <span class="edu-degree fw-bold">Bachelor of Technology in Electronics and Communication Engineering</span><br>
                 <a href="https://www.ptu.ac.in/" target="_blank" class="edu-school">Punjab Technical University, India</a>
               </div>
             </div>
@@ -261,11 +254,11 @@
       <section id="languages" class="section mb-5">
         <h2 class="section-title accent"><i class="fa fa-language"></i>Languages</h2>
         <div>
-          <span class="icon-badge lang-fluent"><i class="fa fa-globe"></i>English: <small>Fluent</small></span>
-          <span class="icon-badge lang-native"><i class="fa fa-language"></i>Hindi: <small>Native</small></span>
-          <span class="icon-badge lang-native"><i class="fa fa-language"></i>Punjabi: <small>Native</small></span>
-          <span class="icon-badge lang-intermediate"><i class="fa fa-language"></i>Japanese: <small>Intermediate</small></span>
-          <span class="icon-badge lang-intermediate"><i class="fa fa-language"></i>German: <small>Beginner</small></span>
+          <span class="icon-badge"><i class="fa fa-globe"></i>English <small>Fluent</small></span>
+            <span class="icon-badge"><i class="fa fa-language"></i>Hindi <small>Native</small></span>
+            <span class="icon-badge"><i class="fa fa-language"></i>Punjabi <small>Native</small></span>
+            <span class="icon-badge"><i class="fa fa-language"></i>Japanese <small>Intermediate</small></span>
+            <span class="icon-badge"><i class="fa fa-language"></i>German <small>Beginner</small></span>
         </div>
       </section>
 
@@ -273,11 +266,11 @@
       <section id="hobbies" class="section mb-5">
         <h2 class="section-title accent"><i class="fa fa-heart"></i>Hobbies</h2>
         <div>
-          <span class="icon-badge hobby-badge-book"><i class="fa fa-book"></i>Reading Books</span>
-          <span class="icon-badge hobby-badge-dev"><i class="fa fa-table-tennis-paddle-ball"></i>Tennis</span>
-          <span class="icon-badge hobby-badge-travel"><i class="fa fa-tree"></i>Spending Time with Nature</span>
-          <span class="icon-badge hobby-badge-dev"><i class="fa fa-hiking"></i>Hiking</span>
-          <span class="icon-badge hobby-badge-travel"><i class="fa fa-plane"></i>Travel & Cultures</span>
+          <span class="icon-badge"><i class="fa fa-book"></i>Reading Books</span>
+          <span class="icon-badge"><i class="fa fa-table-tennis-paddle-ball"></i>Tennis</span>
+          <span class="icon-badge"><i class="fa fa-tree"></i>Nature Time</span>
+          <span class="icon-badge"><i class="fa fa-hiking"></i>Hiking</span>
+          <span class="icon-badge"><i class="fa fa-plane"></i>Travel & Cultures</span>
         </div>
       </section>
 
@@ -289,9 +282,7 @@
               <h5 class="modal-title" id="experienceModalLabel">Experience Detail</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" id="experience-modal-body">
-              <!-- Content gets injected by JS -->
-            </div>
+            <div class="modal-body" id="experience-modal-body"></div>
           </div>
         </div>
       </div>
@@ -300,17 +291,16 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Smooth scroll
     document.querySelectorAll('.scroll-link').forEach(link => {
-      link.addEventListener('click', function(e) {
+      link.addEventListener('click', e => {
         e.preventDefault();
         document.querySelectorAll('.scroll-link').forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-        const target = document.querySelector(this.getAttribute('href'));
-        if(target) window.scrollTo({ top: target.offsetTop - 30, behavior: 'smooth' });
+        link.classList.add('active');
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) window.scrollTo({ top: target.offsetTop - 30, behavior: 'smooth' });
       });
     });
-    // Experiences data (you can enhance this as needed)
+
     const experiences = [
       {
         title: "AI Working Student @ Gameforge",
@@ -318,11 +308,10 @@
         location: "Karlsruhe, Germany",
         details: `
           <ul>
-            <li>Engineered a local AI platform that empowers users to interact seamlessly with LLMs.</li>
+            <li>Engineered a local AI platform for secure LLM interaction.</li>
             <li>Stack: Python, REST APIs, OpenAI, Ollama, LiteLLM, LLMProxy, LangChain.</li>
-            <li>Facilitated experimentation by integrating both open-source and commercial LLMs.</li>
-            <li>Designed intuitive interfaces for efficient prompt input and result visualization.</li>
-            <li>Enabled users to choose any LLM model and chat securely without transmitting data externally.</li>
+            <li>Integrated open-source + commercial models.</li>
+            <li>Built prompt & result visualization interfaces.</li>
           </ul>
         `
       },
@@ -332,11 +321,10 @@
         location: "Osaka, Japan",
         details: `
           <ul>
-            <li>Managed end-to-end database and data warehouse solutions.</li>
-            <li>Specialized in DWH, ETL, BI, Big Data, and cloud platforms.</li>
-            <li>Enhanced reporting accuracy and optimized data processing, achieving a 40% reduction in processing time.</li>
-            <li>Worked with AWS, Azure, Informatica, and complex SQL pipelines.</li>
-            <li>Designed and developed custom software solutions tailored to business requirements.</li>
+            <li>Led data warehouse & ETL architecture.</li>
+            <li>Reduced processing time by 40%.</li>
+            <li>Used AWS, Azure, Informatica, advanced SQL.</li>
+            <li>Delivered secure department data access.</li>
           </ul>
         `
       },
@@ -346,9 +334,9 @@
         location: "Bangalore, India",
         details: `
           <ul>
-            <li>Designed DWH models using Informatica PowerCenter.</li>
-            <li>Developed and maintained Tableau and Power BI dashboards.</li>
-            <li>Automated ETL processes for faster business insights.</li>
+            <li>Designed DWH models (Informatica PowerCenter).</li>
+            <li>Built Tableau & Power BI dashboards.</li>
+            <li>Automated ETL for faster analytics.</li>
           </ul>
         `
       },
@@ -358,32 +346,29 @@
         location: "Bangalore, India",
         details: `
           <ul>
-            <li>Designed and maintained LAN, WAN, and wireless networks.</li>
-            <li>Ensured uptime and security for data center operations.</li>
+            <li>Maintained LAN, WAN, wireless networks.</li>
+            <li>Ensured uptime & security.</li>
           </ul>
         `
-      },
+      }
     ];
-    // Attach "More Detail" buttons to each experience
-    document.addEventListener('DOMContentLoaded', function () {
-      // Add button to each .timeline-item
+
+    document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.timeline-item').forEach((item, idx) => {
         const btn = document.createElement('button');
         btn.className = 'btn btn-link p-0 ms-2 text-decoration-underline text-primary more-detail-btn';
         btn.textContent = 'More detail';
-        btn.setAttribute('data-exp-idx', idx);
-        btn.setAttribute('type', 'button');
+        btn.type = 'button';
+        btn.dataset.expIdx = idx;
         btn.setAttribute('data-bs-toggle', 'modal');
         btn.setAttribute('data-bs-target', '#experienceModal');
-        // Place button after the last <p> in the timeline item
         const lastP = item.querySelector('p.timeline-desc') || item.querySelector('p:last-of-type');
         if (lastP) lastP.insertAdjacentElement('afterend', btn);
       });
-      // Handle modal content on button click
+
       document.querySelectorAll('.more-detail-btn').forEach(btn => {
-        btn.addEventListener('click', function () {
-          const idx = this.getAttribute('data-exp-idx');
-          const exp = experiences[idx];
+        btn.addEventListener('click', () => {
+          const exp = experiences[btn.dataset.expIdx];
           document.getElementById('experienceModalLabel').textContent = exp.title;
           document.getElementById('experience-modal-body').innerHTML = `
             <div><strong>Duration:</strong> ${exp.date}</div>
@@ -392,6 +377,21 @@
             ${exp.details}
           `;
         });
+      });
+
+      document.querySelector('.theme-toggle')?.addEventListener('click', () => {
+        document.documentElement.classList.toggle('light');
+      });
+
+      const sections = [...document.querySelectorAll('main section[id]')];
+      window.addEventListener('scroll', () => {
+        const pos = window.scrollY + 120;
+        const current = sections.find(s => pos >= s.offsetTop && pos < s.offsetTop + s.offsetHeight);
+        if (current) {
+          document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
+          const link = document.querySelector('.nav-link[href="#' + current.id + '"]');
+          link && link.classList.add('active');
+        }
       });
     });
   </script>
